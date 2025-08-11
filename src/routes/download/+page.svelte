@@ -1,9 +1,11 @@
 <script>
     import { supabase } from "../supabase-client";
     let inputCode;
-    let downloadUrl;
+    let btnPressed = false;
+    let downloading = false;
 
     const handleFileDownload = async () => {
+        btnPressed = true;
         const {data, error} = await supabase
             .from("uploaded-files")
             .select("file_url")
@@ -14,7 +16,40 @@
             return
         }
 
-        downloadUrl = data[0].file_url;
+        downloadFile(data[0].file_url)
+    }
+
+    const downloadFile = (publicUrl) => {
+        downloading = true;
+        fetch(publicUrl)
+            .then(response => response.blob())
+            .then(blob => {
+                // Create a link element to trigger download
+                const url = window.URL.createObjectURL(blob);
+                    
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                    
+                // Extract filename from URL or use a default
+                const filename = publicUrl.split('/').pop() || 'downloaded-file';
+                a.download = filename;
+                
+                document.body.appendChild(a);
+                a.click();
+                    
+                // Clean up
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            })
+            .catch(error => console.error('Download failed:', error));
+
+            resetLoading();
+    }
+
+    const resetLoading = () => {
+        downloading = false;
+        btnPressed = false;
     }
 </script>
 
@@ -24,7 +59,7 @@
         <input type="text" bind:value={inputCode}>
         <button onclick={handleFileDownload}>Download</button>
     </div>
-    <h2>
-        {downloadUrl}
-    </h2>
+	{#if btnPressed && !downloading}
+        loading...
+    {/if}
 </main>
