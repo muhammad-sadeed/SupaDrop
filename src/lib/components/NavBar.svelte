@@ -1,10 +1,12 @@
 <script>
     import { page } from "$app/stores";
+    import logo from "$lib/assets/supadrop-logo.png"
 </script>
 
 <nav>
     <div class="logo">
-        <a href="/">
+        <a href="/" class="logo">
+            <img src={logo} alt="supadrop-logo">
             <h2>SupaDrop</h2>
         </a>
     </div>
@@ -30,6 +32,10 @@
         display: flex;
         align-items: center;
         gap: 1rem;
+    }
+
+    .logo img {
+        height: 2.5rem;
     }
 
     .nav-links {
