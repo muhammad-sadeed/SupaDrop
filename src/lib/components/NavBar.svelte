@@ -6,17 +6,21 @@
 <nav>
     <div class="logo">
         <a href="/" class="logo">
-            <img src={logo} alt="supadrop-logo">
-            <h2>SupaDrop</h2>
+            <!-- <img src={logo} alt="supadrop-logo"> -->
+            <h3 class="h3 font-bold font-sans">SupaDrop</h3>
         </a>
     </div>
     <div class="nav-links">
-        <li>
-            <a href="/upload" class:active={$page.url.pathname === '/upload'}>Upload</a>
-        </li>
-        <li>
-            <a href="/download" class:active={$page.url.pathname === '/download'}>Download</a>
-        </li>
+        <a href="/upload">
+            <span class={$page.url.pathname === '/upload' ? "badge preset-filled" : "badge preset-outlined"}>
+                <p class="text-sm">upload</p>
+            </span>
+        </a>
+        <a href="/download">
+            <span class={$page.url.pathname === '/download' ? "badge preset-filled" : "badge preset-outlined"}>
+                <p class="text-sm">download</p>
+            </span>
+        </a>
     </div>
 </nav>
 
@@ -34,29 +38,8 @@
         gap: 1rem;
     }
 
-    .logo img {
-        height: 2.5rem;
-    }
-
     .nav-links {
         display: flex;
         gap: 1rem;
     }
-
-    .nav-links li, a {
-        all: unset;
-        text-decoration: none;
-    }
-
-    li, a:hover {
-        cursor: pointer;
-    }
-
-    nav h2 {
-        margin: 0;
-    }
-
-    a.active {
-		text-decoration: underline;
-	}
 </style>

@@ -1,24 +1,14 @@
-<main>
-    <div class="greetings">
-        <h1>Weolcome to SupaDrop</h1>
-        <p>share files without and hassle</p>
+<main class="gap-4 mt-6">
+    <div class="flex flex-col text-center gap-2">
+        <h1 class="h1 font-bold font-sans">Welcome to SupaDrop</h1>
+        <p>share files without any hassle</p>
     </div>
-    <div class="btn">
-        <button>
+    <div>
+        <button class="btn preset-filled">
             <a href="/upload">Upload</a>
         </button>
-        <button>
+        <button class="btn preset-outlined">
             <a href="/download">Download</a>
         </button>
     </div>
 </main>
-
-<style>
-    .greetings {
-        text-align: center;
-    }
-
-    button a {
-        all: unset;
-    }
-</style>

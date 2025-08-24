@@ -1,5 +1,6 @@
 <script>
     import { supabase } from "../supabase-client";
+    import { Download } from "lucide-svelte";
     let inputCode;
     let btnPressed = false;
     let downloading = false;
@@ -53,11 +54,14 @@
     }
 </script>
 
-<main>
-    <h1>Download a File</h1>
-    <div class="download-section">
-        <input type="text" bind:value={inputCode}>
-        <button onclick={handleFileDownload}>Download</button>
+<main class="gap-4">
+    <h3 class="h3 font-sans">Enter the code to download the file</h3>
+    <div class="input-group grid-cols-[auto_1fr_auto]">
+        <div class="ig-cell preset-tonal">
+            <Download size={16} />
+        </div>
+        <input class="ig-input" type="search" placeholder="Search..." bind:value={inputCode} />
+        <button class="ig-btn preset-filled" on:click={handleFileDownload}>Download</button>
     </div>
 	{#if btnPressed && !downloading}
         loading...
