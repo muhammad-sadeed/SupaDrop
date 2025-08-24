@@ -1,6 +1,8 @@
 <script>
 	import { supabase } from '../supabase-client';
 	import { FileUpload } from '@skeletonlabs/skeleton-svelte';
+	import { Copy } from 'lucide-svelte';
+	import { fade } from "svelte/transition";
 	// Icons
 	import { ImagePlus as IconDropzone, Paperclip as IconFile, CircleX as IconRemove } from 'lucide-svelte';
 	let uploadedFile;
@@ -77,9 +79,21 @@
 
 		return `${hrs}:${mins}:${secs}`;
 	};
+
+	let isCopied = false
+	const copyToClipboard = () => {
+		isCopied = true;
+		navigator.clipboard
+      		.writeText(fileCode)
+      		.then(() => console.log('Source data copied to clipboard!'));
+
+		setTimeout(() => {
+			isCopied = false
+		}, 2000)
+	}
 </script>
 
-<main class="gap-4">
+<main in:fade class="gap-4">
 	<h2 class="h2 font-sans">Upload your file</h2>
 	<div class="flex flex-col justify-center w-128 gap-3.5">
 		<FileUpload
@@ -98,6 +112,12 @@
 	{#if !fileUrl && toggleUpload}
 		<h1>loading...</h1>
 	{:else if fileUrl}
-		<h1>{fileCode}</h1>
+		<button class="btn preset-filled" onclick={copyToClipboard}>
+			<Copy />
+			{fileCode}
+		</button>
+	{/if}
+	{#if isCopied}
+		<p transition:fade>text copied!</p>
 	{/if}
 </main>

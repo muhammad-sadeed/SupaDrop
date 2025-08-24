@@ -1,6 +1,7 @@
 <script>
     import { supabase } from "../supabase-client";
     import { Download } from "lucide-svelte";
+	import { fade } from "svelte/transition";
     let inputCode;
     let btnPressed = false;
     let downloading = false;
@@ -54,7 +55,7 @@
     }
 </script>
 
-<main class="gap-4">
+<main in:fade class="gap-4">
     <h3 class="h3 font-sans">Enter the code to download the file</h3>
     <div class="input-group grid-cols-[auto_1fr_auto]">
         <div class="ig-cell preset-tonal">
